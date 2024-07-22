@@ -8,12 +8,30 @@ var logger = require('morgan');
 const mongoose = require('./models/connect')
 mongoose.connect()
 
+const Usermodel = require('./models/Userschema')
+const passport = require ('passport')
+const expressSession = require('express-session')
+
+
 var indexRoutes = require('./routes/index.routes');
 var usersRoutes = require('./routes/users.routes');
 
 var app = express();
 
+app.use(expressSession({
 
+  resave:false,
+  saveUninitialized:false,
+  secret: process.env.passportSecret
+  
+  }));
+  
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.serializeUser(Usermodel.serializeUser())
+  passport.deserializeUser(Usermodel.deserializeUser())
+  
 
 
 
