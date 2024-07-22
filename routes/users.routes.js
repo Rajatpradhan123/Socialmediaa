@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Usermodel = require('../models/Userschema')
+const sendmail = require('../utils/nodemailer')
 const passport = require('passport')
 const localstrategy = require('passport-local')
 passport.use(new localstrategy(Usermodel.authenticate()))
@@ -20,6 +21,7 @@ router.post('/register', function (req, res, next) {
   Usermodel.register(userdata, req.body.password)
     .then(function (registerUser) {
       passport.authenticate('local')(req, res, function () {
+        sendmail(req,res)
         res.redirect('/login')
 
       })
