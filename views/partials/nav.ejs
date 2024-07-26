@@ -1,23 +1,17 @@
 <nav class="flex justify-center items-center gap-x-10 my-10">
 
- <h1 class=" text-5xl absolute left-2  text-red-300 font-bold">Blog</h1>
+   <h1 class=" text-5xl absolute left-2  text-red-300 font-bold">Blog</h1>
 
- <% if (user) { %>
-    <a href="/user/profile">Home</a>
-    <a href="/Contacts">Contacts</a>
-    <a href="/user/Timeline">Timeline</a>
-    <a  class="absolute right-28" href="/user/logout">Logout</a>
- <% }else { %>
-
-    <a href="/">Home</a>
-    <a href="/About">About</a>
-    <a href="/Contacts">Contacts</a>
-    <a class="absolute right-28" href="/login">Login</a>
-    <a class="absolute right-10" href="/register">Register</a>
-    
-
-
-<% } %>
-
-
+   <% if (user) { %>
+      <a href="/user/profile">Home</a>
+      <a href="/Contacts">Contacts</a>
+      <a href="/user/Timeline">Timeline</a>
+      <a class="absolute right-28" href="/user/logout">Logout</a>
+      <% }else { %>
+         <a href="/">Home</a>
+         <a href="/About">About</a>
+         <a href="/Contacts">Contacts</a>
+         <a class="absolute right-28" href="/login">Login</a>
+         <a class="absolute right-10" href="/register">Register</a>
+         <% } %>
 </nav>

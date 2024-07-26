@@ -14,14 +14,13 @@ const sendmail =function(req,res){
 
     const mailoption ={
         from:"pradhanrajat1999@gmail.com",
-        to:req.body.email,
-        subject:"only for test mail",
+        to: req.body.email,
+        subject:"Welcome to blog website",
         text:'hello welcome from oue team',
-        html:"<h1>your registration is suuccessfull</h1>"
+        html:"<h1>your registration is suuccessfull</h1></br><p>start your journey by posting your first blog</p>"
     }
 
     transport.sendMail(mailoption,function(err,info){
-
         if(err){
             console.log(err)
            return res.send(err)
@@ -29,7 +28,6 @@ const sendmail =function(req,res){
         console.log(info)
         res.send("email sent to user")
     })
-
 
 }
 

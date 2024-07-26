@@ -1,4 +1,4 @@
-require("dotenv").config({path})
+require("dotenv").config({ path: "./.env" })
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,7 +9,7 @@ const mongoose = require('./models/connect')
 mongoose.connect()
 
 const Usermodel = require('./models/Userschema')
-const passport = require ('passport')
+const passport = require('passport')
 const expressSession = require('express-session')
 
 
@@ -19,19 +19,17 @@ var usersRoutes = require('./routes/users.routes');
 var app = express();
 
 app.use(expressSession({
-
-  resave:false,
-  saveUninitialized:false,
+  resave: false,
+  saveUninitialized: false,
   secret: process.env.passportSecret
-  
-  }));
-  
-  
-  app.use(passport.initialize());
-  app.use(passport.session());
-  passport.serializeUser(Usermodel.serializeUser())
-  passport.deserializeUser(Usermodel.deserializeUser())
-  
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(Usermodel.serializeUser())
+passport.deserializeUser(Usermodel.deserializeUser())
+
 
 
 
@@ -50,12 +48,12 @@ app.use('/', indexRoutes);
 app.use('/user', usersRoutes);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

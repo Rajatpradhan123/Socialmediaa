@@ -1,23 +1,27 @@
 <%- include('partials/header') %>
-<%- include('partials/nav') %>
+    <%- include('partials/nav') %>
+        <div class="h-full w-[80%] bg-green-200 flex space-y-6 flex-col justify-center items-center absolute left-40 ">
+            <div class="w-[80%] h-[30%]  flex justify-center space-y-6 flex-col items-center bg-red-200 ">
+                <h1 class="text-6xl text-white font-bold ">
+                    <%= `Welcome ${user.name}` %>
+                </h1>
+                <a class="h-[3vmax] w-[17vmax] flex justify-center items-center font-bold  bg-green-200 text-white"
+                    href="/createpost">Add post</a>
+            </div>
+            <div class="w-[80%] h-[30%]  flex justify-center space-x-4  items-center bg-red-200 ">
+                <% allpost.forEach(e=> { %>
+                    <div class="posts h-48 w-64 bg-white  flex  flex-col  space-y-2 ">
 
-
-
-
-<div class="w-[80%] h-[30%] mx-auto p-10 flex justify-center items-center bg-red-200 absolute top-60 left-40">    
-  
-    <h1 class="text-6xl text-white font-bold "> <%= `Welcome ${user.name}` %> </h1>
-    
-      
-    
-    
-    </div>
-
-
-
-
-
-
-
-
-<%- include('partials/footer') %>
+                        <img src="/images/<%= e.photo %>" alt=""><%=  %>
+                        <h1 class="text-3xl">
+                            <%= e.title %>
+                        </h1>
+                        <p class="text-2xl">
+                            <%= e.description %>
+                        </p>
+                        <a href="/user/Delete/<%= e._id %>">Delete</a><a href="/user/Update/<%= e._id %>">Update</a>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+        <%- include('partials/footer') %>
