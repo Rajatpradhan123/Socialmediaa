@@ -1,0 +1,12 @@
+<%- include('partials/header') %>
+    <%- include('partials/nav') %>
+        
+    <div class="w-[80%] mx-auto p-10">
+            <form class="flex   flex-col m-auto gap-y-5 w-1/2" action="/user/Update/<%= Update._id %>" method="post">
+                <h1 class="text-4xl font-bold text-black">Update Post Here</h1>
+                <input class="border p-3 w-3/5 rounded" value="<%= Update.title %>" type="text" placeholder="PostTitle" name="title">
+                <input class="border p-3 w-3/5 rounded" value="<%= Update.description %>" type="text" placeholder="PostTitle" name="description">
+                <button class="h-[3vmax] w-[17vmax] bg-red-200 text-white">Update Post</button>
+            </form>
+        </div>
+        <%- include('partials/footer') %>

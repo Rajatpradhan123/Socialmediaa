@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const { isLoggedIn } = require('../middlewares/middleware')
 const Usermodel = require('../models/Userschema')
 const postmodel = require('../models/postschema')
 const sendmail = require('../utils/nodemailer')
 const passport = require('passport')
 const localstrategy = require('passport-local')
+
 passport.use(new localstrategy(Usermodel.authenticate()))
+
 
 const upload = require('../utils/multer').single('photo')
 
@@ -29,16 +32,25 @@ router.post('/register', function (req, res, next) {
     })
 });
 
-router.post('/createpost', upload, async function (req, res, next) {
+router.post('/createpost', upload, isLoggedIn, async function (req, res, next) {
 
   const newpost = await postmodel.create({
     title: req.body.title,
     description: req.body.description,
-    photo:req.file.filename
+
+
   })
+
+  const currentLoggedInuser = req.user
+  newpost.user = currentLoggedInuser._id
+  currentLoggedInuser.post.push(newpost._id)
+  await newpost.save()
+  await currentLoggedInuser.save()
   res.redirect('/user/profile')
 
 });
+
+
 
 
 
@@ -64,33 +76,22 @@ router.get('/Delete/:id', isLoggedIn, async function (req, res, next) {
 
 router.get('/Update/:id', isLoggedIn, async function (req, res, next) {
   const Update = await postmodel.findById(req.params.id)
-  res.render('Update', { allpost: allpost });
+  res.render('Update', { Update: Update, user: req.user });
 });
 
-router.post('/Update/:id',isLoggedIn, async function (req, res, next) {
+router.post('/Update/:id', isLoggedIn, async function (req, res, next) {
   const Updatedata = await postmodel.findByIdAndUpdate(req.params.id, {
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
+
   })
+
   res.redirect('/user/profile')
 });
 
 
 
-function isLoggedIn(req, res, next) {
-
-  if (req.isAuthenticated()) {
-    return next()
-  }
-  else {
-    res.redirect('/login')
-  }
-
-}
-
-
-
-router.get('/logout',isLoggedIn, function (req, res, next) {
+router.get('/logout', isLoggedIn, function (req, res, next) {
   req.logout(function (err) {
 
     if (err) {

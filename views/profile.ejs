@@ -8,20 +8,30 @@
                 <a class="h-[3vmax] w-[17vmax] flex justify-center items-center font-bold  bg-green-200 text-white"
                     href="/createpost">Add post</a>
             </div>
-            <div class="w-[80%] h-[30%]  flex justify-center space-x-4  items-center bg-red-200 ">
+            <div
+                class="w-[80%] h-96  flex justify-center space-x-4 flex-col relative overflow-y-hidden overflow-y-scroll items-center bg-red-200 ">
                 <% allpost.forEach(e=> { %>
-                    <div class="posts h-48 w-64 bg-white  flex  flex-col  space-y-2 ">
 
-                        <img src="/images/<%= e.photo %>" alt=""><%=  %>
-                        <h1 class="text-3xl">
+                    <div
+                        class=" w-[80%] h-[70%] flex justify-start items-start bg-white flex-col space-y-10  relative ">
+                        <p class="font-bold ">
+                            <%= ` ${user.name}` %>
+                        </p>
+                        <h1 class="text-2xl font-bold  ">
                             <%= e.title %>
                         </h1>
-                        <p class="text-2xl">
+                        <p>
                             <%= e.description %>
                         </p>
-                        <a href="/user/Delete/<%= e._id %>">Delete</a><a href="/user/Update/<%= e._id %>">Update</a>
+                        <div
+                            class="h-[20%] w-[20vmax] flex justify-center  items-center space-x-24 absolute left-60 bottom-1 ">
+                            <a class="bg-red-200 h-[3vmax] w-[7vmax] rounded flex justify-center items-center"
+                                href="/user/Delete/<%= e._id %>">Delete</a><a
+                                class="bg-green-200 h-[3vmax] w-[7vmax] rounded flex justify-center items-center"
+                                href="/user/Update/<%= e._id %>">Update</a></div>
                     </div>
-                    <% }) %>
             </div>
+            <% }) %>
+        </div>
         </div>
         <%- include('partials/footer') %>

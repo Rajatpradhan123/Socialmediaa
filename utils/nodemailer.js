@@ -1,3 +1,4 @@
+const e = require('express');
 const nodemailer = require('nodemailer')
 
 const sendmail =function(req,res){
@@ -17,7 +18,7 @@ const sendmail =function(req,res){
         to: req.body.email,
         subject:"Welcome to blog website",
         text:'hello welcome from oue team',
-        html:"<h1>your registration is suuccessfull</h1></br><p>start your journey by posting your first blog</p>"
+        html:`<h1> Hello }your registration is suuccessfull</h1></br><p>start your journey by posting your first blog</p`
     }
 
     transport.sendMail(mailoption,function(err,info){
