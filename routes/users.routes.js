@@ -61,9 +61,18 @@ router.post('/login', passport.authenticate('local', {
 
 
 router.get('/profile', isLoggedIn, async function (req, res, next) {
-  const allpost = await postmodel.find()
+  const posts = await req.user.populate('post')
+  const allpost = posts.post
   res.render('profile', { title: 'profile | Socialmedia', user: req.user, allpost: allpost })
 });
+
+
+router.get('/timeline', isLoggedIn, async function (req, res, next) {
+ 
+  const allpost = await postmodel.find()
+  res.render('timeline', { title: 'profile | Socialmedia', user: req.user, allpost: allpost })
+});
+
 
 
 
